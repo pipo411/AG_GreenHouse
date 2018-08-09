@@ -26,7 +26,9 @@ pipeline {
 
            }
 
-       }        stage('Code quality analysis...') {
+       }        
+      
+       stage('Code quality analysis...') {
 
            steps {
 
