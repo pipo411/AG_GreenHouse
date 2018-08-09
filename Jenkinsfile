@@ -27,7 +27,29 @@ pipeline {
            }
 
        }         
+      stage('Coverage') {
 
+           steps {
+
+               echo 'Coverage..'
+
+            sh './gradlew test jacocoTestReport'
+
+           }
+
+       }   
+
+       stage('CodeQuality') {
+
+           steps {
+
+               echo 'Code Quality..'
+
+            sh './gradlew sonarqube '
+
+           }
+
+       }  
    }
 
 }
