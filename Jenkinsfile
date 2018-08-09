@@ -26,19 +26,7 @@ pipeline {
 
            }
 
-       }        
-      
-       stage('Code quality analysis...') {
-
-           steps {
-
-               echo 'sonarqube...'
-
-            sh './gradlew sonarqube '
-
-           }
-
-       }    
+       }         
 
    }
 
