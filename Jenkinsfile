@@ -2,25 +2,38 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            steps {
-                sh'./gradlew clean assemble'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh'./gradlew clean test'
-            }
-        }
-        stage('Coverage') {
-            steps {
-                sh'./gradlew clean jacocoTestReports'
-            }
-        }
-        stage('CodeQuality') {
-            steps {
-                sh'./gradlew sonarqube'
-            }
-        }
+       stage('Build') {
+
+           steps {
+
+               echo 'Building..'
+
+            sh './gradlew clean assemble'
+
+           }
+
+       }
+
+       stage('Test') {
+
+           steps {
+
+               echo 'Testing..'
+
+            sh './gradlew test jacocoTestReport'
+
+           }
+
+       }        stage('Code quality analysis...') {
+
+           steps {
+
+               echo 'sonarqube...'
+
+            sh './gradlew sonarqube '
+
+           }
+
+       }
     }
 }
