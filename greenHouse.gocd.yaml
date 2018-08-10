@@ -1,0 +1,62 @@
+format_version: 3
+pipelines:
+  greenhouseProject:
+    lock_behavior: lockOnFailure
+    group: green
+    materials:
+      repo:
+        git: https://github.com/pipo411/AG_GreenHouse.git
+        branch: gocd
+    stages:
+      - Build:
+          jobs:
+            Building:
+              tasks:
+                - exec:
+                    command: ./gradlew
+                    arguments:
+                      - "clean"
+                      - "assemble"  
+                     
+              artifacts:
+                - build:
+                    source: build/libs/*.war
+                    destination: buildJar   
+      - Test:
+          jobs:
+            Unit_Test:
+              tasks:
+                - exec:
+                    command: ./gradlew
+                    arguments:
+                      - test
+                      
+                - exec:
+                    command: ./gradlew
+                    arguments:
+                      - check
+              artifacts:
+                - build:
+                    source: build/reports/tests/test/index.html
+                    destination: html
+                - build:
+                    source: build/reports/findbugs/main.html
+                    destination: findbugs
+                - build:
+                    source: build/reports/pmd/main.html
+                    destination: pmd
+
+              tabs:
+                findbugs_main: findbugs/main.html
+                pmd_main: pmd/main.html
+                htmlReports: html/index.html 
+
+      - CodeQuality:
+          jobs:
+            CodeQuality: 
+              tasks:
+                - exec:
+                    command: ./gradlew
+                    arguments:
+                      - sonarqube
+                    
