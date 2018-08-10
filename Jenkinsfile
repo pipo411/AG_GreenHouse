@@ -33,7 +33,7 @@ pipeline {
 
     post {
              always {
-             junit 'build/test-results/test/*.html'
+             junit 'build/test-results/test/*.xml'
              publishHTML (target: [
                allowMissing: false,
                alwaysLinkToLastBuild: false,
@@ -47,5 +47,4 @@ pipeline {
              success {
              archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
     }
-
 }
