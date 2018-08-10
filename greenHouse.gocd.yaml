@@ -37,13 +37,13 @@ pipelines:
                     arguments:
                       - clean
                       - test
-                      - jacocoTestReport
+                      - jacocoTestReport 
                 - exec:
                     command: ./gradlew
                     arguments:
                       - clean
                       - check
-                artifacts:
+              artifacts:
                 - build:
                     source: build/reports/tests/test/index.html
                     destination: html
