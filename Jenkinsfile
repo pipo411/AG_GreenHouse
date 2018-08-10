@@ -33,7 +33,7 @@ pipeline {
 
    post {
         always {
-           junit 'build/test-results/test/*.xml'
+
            publishHTML (target: [
              allowMissing: false,
              alwaysLinkToLastBuild: false,
@@ -41,7 +41,39 @@ pipeline {
              reportDir: 'build/reports/tests/test',
              reportFiles: 'index.html',
              reportName: "Test Summary"
-	       ])		   
+	       ])
+            publishHTML (target: [
+             allowMissing: false,
+             alwaysLinkToLastBuild: false,
+             keepAll: true,
+             reportDir: 'build/reports/findbugs',
+             reportFiles: 'main.html',
+             reportName: "FindBugs Test"
+	       ])
+           publishHTML (target: [
+             allowMissing: false,
+             alwaysLinkToLastBuild: false,
+             keepAll: true,
+             reportDir: 'build/reports/findbugs',
+             reportFiles: 'test.html',
+             reportName: "FindBugs Test"
+	       ])
+           publishHTML (target: [
+             allowMissing: false,
+             alwaysLinkToLastBuild: false,
+             keepAll: true,
+             reportDir: 'build/reports/pmd',
+             reportFiles: 'main.html',
+             reportName: "PMD Test"
+	       ])
+           publishHTML (target: [
+             allowMissing: false,
+             alwaysLinkToLastBuild: false,
+             keepAll: true,
+             reportDir: 'build/reports/pmd',
+             reportFiles: 'test.html',
+             reportName: "PMD Test"
+	       ])
        }
        success {
            archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
