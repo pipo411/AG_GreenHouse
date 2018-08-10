@@ -33,7 +33,8 @@ repositories {
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java']
+            srcDirs = ['src/main/java/com']
+	    srcDirs = ['src/main/java/org']
         }
     }
     test {
