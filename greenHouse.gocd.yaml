@@ -1,0 +1,41 @@
+format_version: 3
+pipelines:
+  greenhouseProject:
+    lock_behavior: lockOnFailure
+    group: green
+    materials:
+      repo:
+        git: https://github.com/pipo411/AG_GreenHouse.git
+        branch: gocd
+    stages:
+      - Build:
+          jobs:
+            Building:
+              tasks:
+                - exec:
+                    command: ./gradlew
+                    arguments:
+                      - "clean"
+                      - "assemble"
+                        
+                     
+              artifacts:
+                - build:
+                    source: quickstart/build/libs/*.jar
+                    destination: buildJar   
+      - Test:
+          jobs:
+            Unit_Test:
+              tasks:
+                - exec:
+                    command: ./gradlew
+                    arguments:
+                      - clean
+                      - test
+                      
+                - exec:
+                    command: ./gradlew
+                    arguments:
+                      - clean
+                      - test
+                      - jacocoTestReport
