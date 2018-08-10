@@ -1,10 +1,10 @@
 plugins {
-	 id "org.gretty" version "2.2.0"
+	id "org.gretty" version "2.2.0"
 	id "com.jonaslasauskas.capsule" version "0.3.0"
+    id "org.sonarqube" version "2.6.2"
 }
 
 apply plugin: 'java'
-apply plugin: 'maven'
 apply plugin: 'war'
 apply plugin: "jacoco"
 
@@ -28,20 +28,23 @@ repositories {
 
 }
 
+
 sourceSets {
+    
     main {
         java {
-            srcDirs = ['src/main/java/**/*.java']
+            srcDirs = ['src/main']
         }
     }
-	
-	test {
+
+    test {
         java {
-            srcDirs = ['src/test/java/**/*.java']
+            srcDirs = ['src/test/java/com']
+            srcDirs = ['src/test/java/org']
         }
     }
-	
 }
+
 
 dependencies {
     testCompile 'junit:junit:4.12'

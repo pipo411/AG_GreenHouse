@@ -1,7 +1,7 @@
 pipeline {
    agent any
    stages {
-       
+
        stage('Build') {
            steps {
                echo 'Building..'
@@ -30,4 +30,23 @@ pipeline {
            }
        }       
    }
+
+post {
+             always {
+             junit 'quickstart/build/test-results/test/*.xml'
+             publishHTML (target: [
+               allowMissing: false,
+               alwaysLinkToLastBuild: false,
+               keepAll: true,
+               reportDir: 'build/reports/tests/test',
+               reportFiles: 'index.html',
+               reportName: "Junit Reports"
+             	])
+             }
+
+
+             success {
+             archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
+}
+
 }
