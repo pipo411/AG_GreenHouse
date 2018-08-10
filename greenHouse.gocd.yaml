@@ -5,8 +5,8 @@ pipelines:
     group: green
     materials:
       repo:
-        git: https://github.com/pipo411/AG_GreenHouse.git
-        branch: gocd
+        git: https://github.com/devops-at06/AG_GreenHouse.git
+        branch: master
     stages:
       - Build:
           jobs:
