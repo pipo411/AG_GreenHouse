@@ -15,19 +15,11 @@ pipeline {
             sh './gradlew test'
            }
        }
-
-       stage('Check Code') {
-           steps {
-               echo 'Checking..'
-            sh './gradlew check'
-           }
-       }
   
-
        stage('Coverage') {
            steps {
                echo 'Coverage..'
-             sh './gradlew test jacocoTestReport'
+             sh './gradlew test jacocoTestReport check'
            }
        } 
 
