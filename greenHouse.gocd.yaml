@@ -54,15 +54,12 @@ pipelines:
                     source: build/reports/pmd/*.html
                     destination: pmd
                 - build:
-                    source: quickstart/build/jacocoHtml/index.html
+                    source: build/jacocoHtml/index.html
                     destination: coverage
                     
               tabs:
                 findbugs_main: findbugs/main.html
-                findbugs_test: findbugs/test.html
                 pmd_main: pmd/main.html
-                pmd_test: pmd/test.html
-                coverage: testReport/index.html
                 htmlReports: html/index.html      
       - CodeQuality:
           jobs:
