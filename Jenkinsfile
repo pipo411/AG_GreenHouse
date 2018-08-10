@@ -5,7 +5,12 @@ pipeline {
        stage('Build') {
            steps {
                echo 'Building..'
-            sh './gradlew clean assemble'
+            sh './gradlew clean war'
+           }
+           post{
+               success {
+                archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
+              }   
            }
        }
 
@@ -14,6 +19,16 @@ pipeline {
                echo 'Testing..'
             sh './gradlew test'
            }
+           post{
+               publishHTML (target: [
+             allowMissing: false,
+             alwaysLinkToLastBuild: false,
+             keepAll: true,
+             reportDir: 'build/reports/tests/test',
+             reportFiles: 'index.html',
+             reportName: "Test Summary"
+	       ])  
+           }
        }
   
        stage('Coverage') {
@@ -21,27 +36,7 @@ pipeline {
                echo 'Coverage..'
              sh './gradlew test jacocoTestReport check'
            }
-       } 
-
-       stage('CodeQuality') {
-           steps {
-               echo 'CodeQuality..'
-            sh './gradlew clean sonarqube'
-           }
-       }       
-   }
-
-   post {
-        always {
-
-           publishHTML (target: [
-             allowMissing: false,
-             alwaysLinkToLastBuild: false,
-             keepAll: true,
-             reportDir: 'build/reports/tests/test',
-             reportFiles: 'index.html',
-             reportName: "Test Summary"
-	       ])
+           post{
             publishHTML (target: [
              allowMissing: false,
              alwaysLinkToLastBuild: false,
@@ -74,9 +69,14 @@ pipeline {
              reportFiles: 'test.html',
              reportName: "PMD Test"
 	       ])
-       }
-       success {
-           archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
-       }      
-    }	
+           }
+       } 
+
+       stage('CodeQuality') {
+           steps {
+               echo 'CodeQuality..'
+            sh './gradlew clean sonarqube'
+           }
+       }       
+   }
 }

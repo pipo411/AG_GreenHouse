@@ -16,7 +16,7 @@ pipelines:
                     command: ./gradlew
                     arguments:
                       - "clean"
-                      - "assemble"  
+                      - "war"  
                      
               artifacts:
                 - build:
