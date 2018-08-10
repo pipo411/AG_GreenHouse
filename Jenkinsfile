@@ -31,20 +31,20 @@ pipeline {
        }       
    }
 
-    post {
-             always {
-             junit 'build/test-results/test/*.xml'
-             publishHTML (target: [
-               allowMissing: false,
-               alwaysLinkToLastBuild: false,
-               keepAll: true,
-               reportDir: 'build/reports/tests/test',
-               reportFiles: 'index.html',
-               reportName: "Junit Reports"
-             	])
-             }
-
-             success {
-             archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
-    }
+   post {
+        always {
+           junit 'build/test-results/test/*.xml'
+           publishHTML (target: [
+             allowMissing: false,
+             alwaysLinkToLastBuild: false,
+             keepAll: true,
+             reportDir: 'build/reports/tests/test',
+             reportFiles: 'index.html',
+             reportName: "Test Summary"
+	       ])		   
+       }
+       success {
+           archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+       }      
+    }	
 }
