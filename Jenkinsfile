@@ -33,7 +33,7 @@ pipeline {
 
    post {
         always {
-           junit 'build/test-results/test/*.xml'
+
            publishHTML (target: [
              allowMissing: false,
              alwaysLinkToLastBuild: false,

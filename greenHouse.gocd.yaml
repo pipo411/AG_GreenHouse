@@ -16,12 +16,12 @@ pipelines:
                     command: ./gradlew
                     arguments:
                       - "clean"
-                      - "assemble"  
-                     
+                      - "assemble"
+
               artifacts:
                 - build:
                     source: build/libs/*.war
-                    destination: buildJar   
+                    destination: buildJar
       - Test:
           jobs:
             Unit_Test:
@@ -30,10 +30,7 @@ pipelines:
                     command: ./gradlew
                     arguments:
                       - test
-                - exec:
-                    command: ./gradlew
-                    arguments:
-                      - jacocoTestReport
+
                 - exec:
                     command: ./gradlew
                     arguments:
@@ -46,28 +43,19 @@ pipelines:
                     source: build/reports/findbugs/main.html
                     destination: findbugs
                 - build:
-                    source: build/jacoco/jacocoHtml/index.html
-                    destination: coverage
-                - build:
                     source: build/reports/pmd/main.html
                     destination: pmd
-                - test:
-                    source: build/reports/test-results/test/*.xml
-                    destination: xml
-
+              
               tabs:
-                coverage: coverage/index.html
                 findbugs_main: findbugs/main.html
                 pmd_main: pmd/main.html
-                htmlReports: html/index.html 
+                htmlReports: html/index.html
 
       - CodeQuality:
           jobs:
-            CodeQuality: 
+            CodeQuality:
               tasks:
                 - exec:
                     command: ./gradlew
                     arguments:
-                      - clean
                       - sonarqube
-                    
