@@ -31,9 +31,9 @@ pipeline {
        }       
    }
 
-post {
+    post {
              always {
-             junit 'quickstart/build/test-results/test/*.xml'
+             junit 'build/test-results/test/*.html'
              publishHTML (target: [
                allowMissing: false,
                alwaysLinkToLastBuild: false,
@@ -44,9 +44,8 @@ post {
              	])
              }
 
-
              success {
              archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
-}
+    }
 
 }
