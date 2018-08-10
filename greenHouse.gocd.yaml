@@ -29,19 +29,16 @@ pipelines:
                 - exec:
                     command: ./gradlew
                     arguments:
-                      - clean
                       - test
                       
                 - exec:
                     command: ./gradlew
                     arguments:
-                      - clean
                       - test
                       - jacocoTestReport 
                 - exec:
                     command: ./gradlew
                     arguments:
-                      - clean
                       - check
               artifacts:
                 - build:
