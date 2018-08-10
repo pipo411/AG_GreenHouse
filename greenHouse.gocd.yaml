@@ -16,12 +16,12 @@ pipelines:
                     command: ./gradlew
                     arguments:
                       - "clean"
-                      - "assemble"
-
+                      - "assemble"  
+                     
               artifacts:
                 - build:
                     source: build/libs/*.war
-                    destination: buildJar
+                    destination: buildJar   
       - Test:
           jobs:
             Unit_Test:
@@ -30,7 +30,7 @@ pipelines:
                     command: ./gradlew
                     arguments:
                       - test
-
+                      
                 - exec:
                     command: ./gradlew
                     arguments:
@@ -45,15 +45,15 @@ pipelines:
                 - build:
                     source: build/reports/pmd/main.html
                     destination: pmd
-              
+
               tabs:
                 findbugs_main: findbugs/main.html
                 pmd_main: pmd/main.html
-                htmlReports: html/index.html
+                htmlReports: html/index.html 
 
       - CodeQuality:
           jobs:
-            CodeQuality:
+            CodeQuality: 
               tasks:
                 - exec:
                     command: ./gradlew
