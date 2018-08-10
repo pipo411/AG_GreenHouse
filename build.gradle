@@ -31,18 +31,14 @@ repositories {
 }
 
 sourceSets {
-    
     main {
         java {
-            srcDirs = ['src/main/java/com']
-            srcDirs = ['src/main/java/org']
+            srcDirs = ['src/main/java']
         }
     }
-
     test {
         java {
-            srcDirs = ['src/test/java/com']
-            srcDirs = ['src/test/java/org']
+            srcDirs = ['src/test/java']
         }
     }
 }
@@ -123,15 +119,16 @@ capsule {
 }
 
 jacoco {
-   toolVersion = "0.8.1"
-   reportsDir = file("$buildDir")
+    toolVersion = "0.8.1"
+    reportsDir = file("$buildDir/reports/jacoco")
 }
+
 jacocoTestReport {
-   reports {
-       xml.enabled false
-       csv.enabled false
-       html.destination file("${buildDir}/jacocoHtml")
-   }
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacoco/jacocoHtml")
+    }
 }
 
 uploadArchives {
@@ -145,8 +142,16 @@ uploadArchives {
 pmd {
     ignoreFailures = true
     ruleSets = [
-    "java-basic",
-    "java-braces"
+            'java-basic',
+            'java-design',
+            'java-unnecessary',
+            'java-empty',
+            'java-braces',
+            'java-codesize',
+            'java-comments',
+            'java-imports',
+            'java-strings',
+            'java-unusedcode'
   ]
     toolVersion = '6.0.0'
 }
