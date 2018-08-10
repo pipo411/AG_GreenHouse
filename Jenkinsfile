@@ -26,14 +26,14 @@ pipeline {
        stage('CodeQuality') {
            steps {
                echo 'CodeQuality..'
-            sh './gradlew sonarqube'
+            sh './gradlew clean sonarqube'
            }
        }       
    }
 
    post {
         always {
-
+           junit 'build/test-results/test/*.xml'
            publishHTML (target: [
              allowMissing: false,
              alwaysLinkToLastBuild: false,
