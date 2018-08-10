@@ -47,10 +47,10 @@ pipelines:
                     destination: findbugs
                 - build:
                     source: build/jacoco/jacocoHtml/index.html
-                    destination: pmd
+                    destination: coverage
                 - build:
                     source: build/reports/pmd/main.html
-                    destination: coverage
+                    destination: pmd
                 - test:
                     source: build/reports/test-results/test/*.xml
                     destination: xml
