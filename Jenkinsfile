@@ -14,18 +14,26 @@ pipeline {
                echo 'Testing..'
             sh './gradlew test'
            }
-       }  
+       }
+
+       stage('Check Code') {
+           steps {
+               echo 'Checking..'
+            sh './gradlew check'
+           }
+       }
+  
 
        stage('Coverage') {
            steps {
-               echo 'Testing..'
+               echo 'Coverage..'
              sh './gradlew test jacocoTestReport'
            }
        } 
 
        stage('CodeQuality') {
            steps {
-               echo 'Testing..'
+               echo 'CodeQuality..'
             sh './gradlew sonarqube'
            }
        }       
@@ -76,7 +84,7 @@ pipeline {
 	       ])
        }
        success {
-           archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+           archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
        }      
     }	
 }
