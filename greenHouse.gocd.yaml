@@ -34,30 +34,23 @@ pipelines:
                 - exec:
                     command: ./gradlew
                     arguments:
-                      - test
-                      - jacocoTestReport 
-                - exec:
-                    command: ./gradlew
-                    arguments:
                       - check
               artifacts:
                 - build:
                     source: build/reports/tests/test/index.html
                     destination: html
                 - build:
-                    source: build/reports/findbugs/*.html
+                    source: build/reports/findbugs/main.html
                     destination: findbugs
                 - build:
-                    source: build/reports/pmd/*.html
+                    source: build/reports/pmd/main.html
                     destination: pmd
-                - build:
-                    source: build/jacocoHtml/index.html
-                    destination: coverage
-                    
+
               tabs:
                 findbugs_main: findbugs/main.html
                 pmd_main: pmd/main.html
-                htmlReports: html/index.html      
+                htmlReports: html/index.html 
+                     
       - CodeQuality:
           jobs:
             CodeQuality: 
