@@ -5,7 +5,7 @@ pipeline {
        stage('Build') {
            steps {
                echo 'Building..'
-            sh './gradlew clean war'
+            sh './gradlew clean assemble'
            }
            post{
                success {
@@ -72,11 +72,24 @@ pipeline {
            }
        } 
 
+        stage('Package') {
+           steps {
+               echo 'CodeQuality..'
+            sh './gradlew clean war'
+           }
+           post{
+               success {
+                archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
+              }   
+           }
+       }
+
        stage('CodeQuality') {
            steps {
                echo 'CodeQuality..'
             sh './gradlew clean sonarqube'
            }
+           
        }       
    }
 }
