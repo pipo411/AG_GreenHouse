@@ -50,13 +50,13 @@ pipelines:
                 findbugs_main: findbugs/main.html
                 pmd_main: pmd/main.html
                 htmlReports: html/index.html 
-                     
+
       - CodeQuality:
           jobs:
             CodeQuality: 
               tasks:
                 - exec:
-                    command: ./quickstart/gradlew
+                    command: ./gradlew
                     arguments:
                       - sonarqube
                     
